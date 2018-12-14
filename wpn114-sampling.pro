@@ -10,6 +10,8 @@ for(FILE,QMLDIR_FILES) {
     QMAKE_POST_LINK += $$quote(cp $${FILE} $${DESTDIR}$$escape_expand(\n\t))
 }
 
+QMAKE_LFLAGS += -Wl,-rpath,$$[QT_INSTALL_QML]/WPN114/Audio
+
 include($$PWD/wpn114-sampling.pri)
 
 # Default rules for deployment.
