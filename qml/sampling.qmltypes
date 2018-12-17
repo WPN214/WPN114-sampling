@@ -1,0 +1,59 @@
+import QtQuick.tooling 1.2
+
+Module
+{
+    Component
+    {
+        name: "Sampler"
+        prototype: "StreamNode"
+        exports: ["WPN114.Audio.Sampling/Sampler 1.0"]
+
+        Property { name: "path"; type: "string" }
+        Property { name: "loop"; type: "bool" }
+        Property { name: "xfade"; type: "int" }
+        Property { name: "attack"; type: "int" }
+        Property { name: "release"; type: "int" }
+        Property { name: "start"; type: "qreal" }
+        Property { name: "end"; type: "qreal" }
+        Property { name: "length"; type: "qreal" }
+        Property { name: "rate"; type: "qreal" }
+
+        Method { name: "play" }
+        Method { name: "stop" }
+    }
+
+    Component
+    {
+        name: "StreamSampler"
+        prototype: "StreamNode"
+        exports: ["WPN114.Audio.Sampling/StreamSampler 1.0"]
+
+        Property { name: "path"; type: "string" }
+        Property { name: "loop"; type: "bool" }
+        Property { name: "xfade"; type: "int" }
+        Property { name: "attack"; type: "int" }
+        Property { name: "release"; type: "int" }
+        Property { name: "start"; type: "qreal" }
+        Property { name: "end"; type: "qreal" }
+        Property { name: "length"; type: "qreal" }
+        Property { name: "rate"; type: "qreal" }
+
+        Method { name: "play" }
+        Method { name: "stop" }
+    }
+
+    Component
+    {
+        name: "MultiSampler"
+        prototype: "StreamNode"
+        exports: ["WPN114.Audio.Sampling/MultiSampler 1.0"]
+
+        Property { name: "path"; type: "string" }
+        Property { name: "files"; type: "QStringList" }
+
+        Method { name: "play"; Parameter { name: "var"; type: "QVariant" }}
+        Method { name: "stop"; Parameter { name: "var"; type: "QVariant" }}
+        Method { name: "playRandom" }
+
+    }
+}
