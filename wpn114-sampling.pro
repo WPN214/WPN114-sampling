@@ -5,6 +5,7 @@ QT += quick
 
 QMLDIR_FILES += $$PWD/qml/qmldir
 QMLDIR_FILES += $$PWD/qml/sampling.qmltypes
+OTHER_FILES = $$QMLDIR_FILES
 
 localmod: DESTDIR = $$QML_MODULE_DESTDIR/WPN114/Audio/Sampling
 else {
