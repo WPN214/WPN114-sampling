@@ -16,7 +16,7 @@ set(WPN114SAMPLING_QML_SOURCES
 set(WPN114AUDIO_ROOT /usr/lib/qt/qml/WPN114/Audio)
 
 add_library(${PROJECT_NAME} SHARED ${WPN114SAMPLING_QML_SOURCES})
-target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Quick Qt5::Qml -lsndfile)
+target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Quick Qt5::Qml -lsndfile -L${WPN114AUDIO_ROOT} -lwpn114audio-qml)
 target_include_directories(${PROJECT_NAME} PUBLIC ${WPN114AUDIO_ROOT}/include)
 
 if(APPLE)
