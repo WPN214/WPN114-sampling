@@ -3,8 +3,6 @@
 #include <wpn114audio/graph.hpp>
 #include <sndfile.h>
 
-#define CSTR(_qstr) _qstr.toStdString().c_str()
-
 //=================================================================================================
 class Sampler : public Node
 //=================================================================================================
@@ -25,10 +23,14 @@ class Sampler : public Node
     WPN_DECLARE_AUDIO_INPUT(release, 1)
     WPN_DECLARE_AUDIO_INPUT(xfade, 1)
 
+    enum inputs { midi_in, play, loop, rate, startpos, endpos, attack, release, xfade };
+
     //---------------------------------------------------------------------------------------------
     WPN_DECLARE_DEFAULT_AUDIO_OUTPUT(audio_out, 0)
     WPN_DECLARE_AUDIO_OUTPUT(end_out, 1)
     WPN_DECLARE_AUDIO_OUTPUT(loop_out, 1)
+
+    enum outputs { audio_out, end_out, loop_out };
 
     Q_PROPERTY(QString path READ path WRITE setPath)
 
@@ -61,7 +63,11 @@ class Sampler : public Node
 public:
 
     //---------------------------------------------------------------------------------------------
-    Sampler() {}
+    Sampler()
+    {
+        m_name = "Sampler";
+        m_dispatch = Dispatch::Values::Downwards;
+    }
 
     //---------------------------------------------------------------------------------------------
     virtual ~Sampler() override
@@ -80,12 +86,8 @@ public:
     set_path(QString path) { m_path = path; }
 
     //---------------------------------------------------------------------------------------------
-    virtual QString
-    name() const override { return "Sampler"; }
-
-    //---------------------------------------------------------------------------------------------
     virtual void
-    componentComplete()
+    componentComplete() override
     // this happens before allocation
     // load file, set n_outputs
     //---------------------------------------------------------------------------------------------
@@ -131,18 +133,18 @@ public:
     rwrite(pool& inputs, pool& outputs, vector_t nframes) override
     //---------------------------------------------------------------------------------------------
     {
-        auto play       = inputs[0][0];
-        auto loop       = inputs[1][0];
-        auto rate       = inputs[2][0];
-        auto startpos   = inputs[3][0];
-        auto endpos     = inputs[4][0];
-        auto attack     = inputs[5][0];
-        auto release    = inputs[6][0];
-        auto xfade      = inputs[7][0];
+        auto play       = inputs[Sampler::play][0];
+        auto loop       = inputs[Sampler::loop][0];
+        auto rate       = inputs[Sampler::rate][0];
+        auto startpos   = inputs[Sampler::startpos][0];
+        auto endpos     = inputs[Sampler::endpos][0];
+        auto attack     = inputs[Sampler::attack][0];
+        auto release    = inputs[Sampler::release][0];
+        auto xfade      = inputs[Sampler::xfade][0];
 
-        auto out        = outputs[0];
-        auto end_out    = outputs[1][0];
-        auto loop_out   = outputs[2][0];
+        auto out        = outputs[Sampler::audio_out];
+        auto end_out    = outputs[Sampler::end_out][0];
+        auto loop_out   = outputs[Sampler::loop_out][0];
 
         auto playing    = m_playing;
         auto attacking  = m_attacking;
