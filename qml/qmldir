@@ -1,5 +1,5 @@
 module WPN114.Audio.Sampling
 typeinfo sampling.qmltypes
-plugin wpn114sampling-qml
+plugin wpn114sampling
 classname qml_plugin
 depends WPN114.Audio 1.1
