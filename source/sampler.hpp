@@ -32,7 +32,7 @@ class Sampler : public Node
 
     enum outputs { audio_out, end_out, loop_out };
 
-    Q_PROPERTY (QString path READ path WRITE setPath)
+    Q_PROPERTY (QString path READ path WRITE set_path)
 
     //---------------------------------------------------------------------------------------------
     SNDFILE*
